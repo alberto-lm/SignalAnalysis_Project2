@@ -12,7 +12,7 @@ wd=0:2*pi/Np:2*pi*(Np-1)/Np;         % Vector de Frec. discreta
 wdo=zeros(1,Np);                     % Vector de Frec. disc. organizadas
 wc=zeros(1,Np);                      % Vector de Frec. cont. en rad/seg
 fc=zeros(1,Np);                      % Vector de Frec. cont. en Hz
-z=mag2db(abs(fft(x,Np)));                    % Magnitud de FFT de la señal
+z=abs(fft(x,Np));          % Magnitud de FFT de la señal en db
 zo=zeros(1,Np);                      % Vector para reorganizar la FFT
 t=0:Tm:Tm*(L-1);                     % Vector de tiempo
 
@@ -29,10 +29,13 @@ zo(Np-Mp+1:end)=z(1:Mp);
 zo(1:Np-Mp)=z(Mp+1:end);
 
 M=zo;
+Mdb=pow2db(abs(M));
+
 freq=fc;
 
 figure;
-plot(freq,M);
+plot(freq,Mdb);
 title('Magnitud de la transformada de Fourier');   
 xlabel('Frecuencia (Hz)');
+ylabel('Amplitud (dB)');
 
